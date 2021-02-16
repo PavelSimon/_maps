@@ -1,0 +1,11 @@
+requests
+fastapi
+uvicorn
+jinja2
+aiofiles
+devtools[pygments]
+python-multipart
+
+Matplotlib
+Shapely
+Descartes
