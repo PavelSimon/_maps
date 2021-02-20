@@ -6,6 +6,4 @@ aiofiles
 devtools[pygments]
 python-multipart
 
-Matplotlib
-Shapely
-Descartes
+folium

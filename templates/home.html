@@ -1,6 +1,14 @@
-{% extends "layout.html" %} {% block content %}
-<h2>Dashboard refresh {{time}}</h2>
+{% extends "layout.html" %} 
+<div>
+    {% block content %}
+    <h2>Dashboard refresh {{time}}</h2>
+    
+    <div>som tu</div>
+    
+    {% endblock %}
+    
+</div>
+<div>
+    {% include "map.html" %} 
 
-<div>som tu</div>
-
-{% endblock %}
+</div>
