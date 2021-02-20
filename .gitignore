@@ -2,4 +2,4 @@ env
 __pycache__
 data
 .vscode
-
+templates\\map.html
