@@ -1,6 +1,8 @@
+import requests
 import time
 from typing import Optional
-
+import folium
+import json
 import uvicorn
 from devtools import debug  # výpis premenný do promptu
 from fastapi import FastAPI, Form, Request
@@ -21,13 +23,7 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="./static"), name="static")
 templates = Jinja2Templates(directory="./templates")
 
-import folium
-import json
-import requests
-
-with open('static\\okresy-edit.json', encoding='utf-8') as myfile:
-    data=myfile.read()
-vis2 = json.loads(data)
+netf.map_loads()
 
 # Routes:
 
@@ -37,24 +33,11 @@ async def root(request: Request):
     """
     Ukáže zoznam zaevidovaných kryptomien
     """
-    # url = (
-    #     "http://download.freemap.sk/AdminLevel"
-    # )
-
-    # print(url)
-
-    # #vis1 = json.loads(requests.get(f"{url}/okresy.json").text)
-    # #vis2 = json.loads(requests.get(f"{url}/okresy-005.json").text)
-    # #http://download.freemap.sk/AdminLevel/kraje.json
-
-    m = folium.Map(location=[48.0, 17.597159], zoom_start=7, width='100%', height='75%')
-    #folium.GeoJson(vis1, name="geojson").add_to(m)
-    folium.GeoJson(vis2, name="geojson").add_to(m)
-    m.save('templates/map.html')
 
     localtime = time.asctime(time.localtime(time.time()))
     print("/; Čas:", localtime)
     return templates.TemplateResponse("home.html", {"request": request, "time": localtime})
+
 
 @app.get("/mapa")
 async def mapa():
@@ -65,9 +48,9 @@ async def mapa():
     print(url)
 
     vis1 = json.loads(requests.get(f"{url}/okresy.json").text)
-    #http://download.freemap.sk/AdminLevel/kraje.json
+    # http://download.freemap.sk/AdminLevel/kraje.json
 
-    m = folium.Map(location=[48.0, 17.597159], zoom_start=7)
+    m = folium.Map(location=[49.0, 19.5], zoom_start=7)
     #folium.GeoJson(vis1, name="geojson").add_to(m)
     m.save('static/map.html')
     return m._repr_html_()
